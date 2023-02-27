@@ -5,8 +5,19 @@ body{
     background: #000;
     font: 1em "Poppins", sans-serif;
     overflow-x: 0;
+    color: #fff;
 }
 
 h1{
     width: 100%;
+}
+
+p{
+    text-align: justify;
+}
+
+.recommend{
+    font-size: 1.2em;
+    padding: 1em 0;
+    font-weight: bold;
 }
