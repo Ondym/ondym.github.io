@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>Dotazník</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <h1>Dotazník - vliv videoher na lidské reflexy</h1>
     <p>
@@ -14,11 +16,47 @@
     </p>
     <div class="recommend">Doporučujeme vyplňovat dotazník na počítači.</div>
     <div class="content">
-        <form action="dotaznik.php" method="post">
-            <label for="user-email">Váš email (slouží pouze k identifikaci, nebudeme Vás kontaktovat):</label>
-            <input type="text" name="mail" id="user-email">
+        <form method="GET" action="submit-form.php">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="Zadejte svůj e-mail" required>
 
-            <label for="user-age"></label>
+            <label for="age">Věk:</label>
+            <input type="number" id="age" name="age" placeholder="Zadejte svůj věk" required>
+
+            <label for="gender">Pohlaví:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Vyberte své pohlaví</option>
+                <option value="male">Muž</option>
+                <option value="female">Žena</option>
+                <option value="other">Jiné</option>
+            </select>
+
+            <label>Hrajete videohry?</label>
+            <label for="yes">
+                <input type="radio" id="yes" name="play_games" value="yes" required>Ano
+            </label>
+            <label for="no">
+                <input type="radio" id="no" name="play_games" value="no">Ne
+            </label>
+
+            <label>Jaké typy videoher máte rád?</label>
+            <label for="action">
+                <input type="checkbox" id="action" name="game_types[]" value="action">Akční
+            </label>
+            <label for="adventure">
+                <input type="checkbox" id="adventure" name="game_types[]" value="adventure">Dobrodružné
+            </label>
+            <label for="strategy">
+                <input type="checkbox" id="strategy" name="game_types[]" value="strategy">Strategické
+            </label>
+            <label for="simulation">
+                <input type="checkbox" id="simulation" name="game_types[]" value="simulation">Simulační
+            </label>
+            <label for="sports">
+                <input type="checkbox" id="sports" name="game_types[]" value="sports">Sportovní
+            </label>
+
+            <input type="submit" value="Odeslat">
         </form>
     </div>
 </body>
