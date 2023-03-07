@@ -1,25 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dotazník</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="form.css">
 </head>
-<body>
-    <h1>Dotazník - vliv videoher na lidské reflexy</h1>
-    <p>
-        Po vyplnění krátkého dotazníku, budete muset absolvovat minihry.
-    </p>
-    <div class="recommend">Doporučujeme vyplňovat dotazník na počítači.</div>
-    <div class="content">
-        <form action="dotaznik.php" method="post">
-            <label for="user-email">Váš email (slouží pouze k identifikaci, nebudeme Vás kontaktovat):</label>
-            <input type="text" name="mail" id="user-email">
 
-            <label for="user-age"></label>
+<body>
+    <div class="header">
+        <h1>Dotazník</h1>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo voluptatibus numquam repellat nam non ullam perferendis, possimus nihil aperiam dicta, animi doloribus laudantium quia cumque distinctio obcaecati consequuntur amet esse! Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio eligendi dolorum corrupti, eos adipisci placeat ex? Voluptates atque perspiciatis, necessitatibus temporibus magni fuga, rem commodi facere optio nesciunt quidem nulla. Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores debitis dicta rem delectus illum dolore molestiae, quod optio nisi velit! Nulla reprehenderit dolores pariatur cupiditate cum exercitationem perferendis ullam minus.</p>
+    </div>
+
+    <div class="form-wrapper">
+
+        <form method="GET" action="submit.php">
+            <label for="age">Věk:</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age" required>
+
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Vyberte vaše pohlaví</option>
+                <option value="male">Muž</option>
+                <option value="female">Žena</option>
+                <option value="other">Jiné</option>
+            </select>
+
+            <label>Hrajete videohry?</label>
+            <label for="yes">
+                <input type="radio" id="yes" name="play_games" value="yes" required>Yes
+            </label>
+            <label for="no">
+                <input type="radio" id="no" name="play_games" value="no">No
+            </label>
+
+            <label>Jaké hry nejvíce hrajete?</label>
+            <label for="action">
+                <input type="checkbox" id="action" name="game_types[]" value="action">Action
+            </label>
+            <label for="adventure">
+                <input type="checkbox" id="adventure" name="game_types[]" value="adventure">Adventure
+            </label>
+            <label for="strategy">
+                <input type="checkbox" id="strategy" name="game_types[]" value="strategy">Strategy
+            </label>
+            <label for="simulation">
+                <input type="checkbox" id="simulation" name="game_types[]" value="simulation">Simulation
+            </label>
+            <label for="sports">
+                <input type="checkbox" id="sports" name="game_types[]" value="sports">Sports
+            </label>
+
+            <fieldset class="form-fieldset">
+                <legend>Videohry</legend>
+                <label for="favorite-game">Jaká je vaše oblíbená hra?</label>
+                <input type="text" id="favorite-game" name="favorite-game" required>
+                <label for="play-frequency">Jak často hrajete videohry?</label>
+                <input type="radio" id="play-frequency-1" name="play-frequency" value="deně">
+                <label for="play-frequency-1">Deně</label>
+                <input type="radio" id="play-frequency-2" name="play-frequency" value="týdně">
+                <label for="play-frequency-2">Týdně</label>
+                <input type="radio" id="play-frequency-3" name="play-frequency" value="měsíčně">
+                <label for="play-frequency-3">Měsíčně</label>
+                <input type="radio" id="play-frequency-4" name="play-frequency" value="méně než měsíčně">
+                <label for="play-frequency-4">Méně než měsíčně</label>
+                <label for="favorite-genre">Jaký je váš oblíbený žánr her?</label>
+                <select id="favorite-genre" name="favorite-genre" required>
+                  <option value="" disabled selected>Vyberte jednu možnost</option>
+                  <option value="akční">Akční</option>
+                  <option value="dobrodružné">Dobrodružné</option>
+                  <option value="RPG">RPG</option>
+                  <option value="strategické">Strategické</option>
+                  <option value="simulační">Simulační</option>
+                  <option value="sportovní">Sportovní</option>
+                  <option value="závodní">Závodní</option>
+                </select>
+              </fieldset>
+
+            <input type="submit" value="Submit">
         </form>
     </div>
+
+    <div class="footer"></div>
+
 </body>
+
 </html>
