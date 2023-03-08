@@ -78,7 +78,8 @@ function createCheckbox(id, name, value, label) {
   return container;
 }
 function createRadio(id, name, value, text, required) {
-  let radioWrapper = document.createElement('label');
+  let radioWrapper = createLabel(name);
+  radioWrapper.className = "radioLabel";
   let radio = document.createElement('input');
   radio.setAttribute('type', 'radio');
   radio.setAttribute('id', id);
@@ -88,10 +89,12 @@ function createRadio(id, name, value, text, required) {
     radio.setAttribute('required', true);
   }
   radioWrapper.appendChild(radio);
-  let radioText = document.createTextNode(text);
+  let radioText = document.createElement("span");
+  radioText.innerText = text;
   radioWrapper.appendChild(radioText);
   return radioWrapper;
 }
+
 function margeRadios(parent, radios) {
   radios.forEach(function(radio) {
     parent.appendChild(radio);

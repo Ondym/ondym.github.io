@@ -3,6 +3,11 @@ let form = document.createElement('form');
 form.setAttribute('method', 'GET');
 form.setAttribute('action', 'form.php');
 
+let formTitle = document.createElement('div');
+formTitle.className = "form-header";
+formTitle.innerText += "Dotazník:";
+form.appendChild(formTitle);
+
 // ABOUT USER
 
 let ageLabel = createLabel('age', 'Věk:');
@@ -31,9 +36,11 @@ form.appendChild(playGamesLabel);
 // ABOUT VIDEOGAMES
 
 let gamesForm = document.createElement('div');
-gamesForm.id = "gamesPart";
+gamesForm.id = "gamesSection";
 
-form.appendChild(document.createElement("span"))
+let lineSpan = document.createElement("span");
+lineSpan.className = "line";
+gamesForm.appendChild(lineSpan);
 
 let howOftenLabel = createLabel("how-often", "Jak často hrajete videohry?");
 [
@@ -54,7 +61,7 @@ form.appendChild(submitButton);
 
 function postSetup() {
     document.getElementsByName("play_games").forEach(radio => {
-        let gamesForm = document.getElementById("gamesPart");
+        let gamesForm = document.getElementById("gamesSection");
         radio.addEventListener("change", function (e) {
             if (e.target.id == "yes") {
                 gamesForm.className = "";
