@@ -40,9 +40,12 @@ function createSelect(id, name, required, options) {
 }
 
 function createRadios(radioParams) { //, id, name, value, text, required
-  let radios = new Array;
+  let radios = document.createElement("div");
+  console.log(radioParams);
+  radios.className = "radiosWrapper";
   radioParams.forEach(r => {
-    let radioWrapper = document.createElement('label');
+    let radioWrapper = createLabel(r.id);
+    radioWrapper.className = "radioLabel";
     let radio = document.createElement('input');
     radio.setAttribute('type', 'radio');
     radio.setAttribute('id', r.id);
@@ -52,10 +55,10 @@ function createRadios(radioParams) { //, id, name, value, text, required
       radio.setAttribute('required', true);
     }
     radioWrapper.appendChild(radio);
-    let radioText = document.createTextNode(r.text);
+    let radioText = document.createElement("span");
+    radioText.innerText = r.text;
     radioWrapper.appendChild(radioText);
-
-    radios.push(radioWrapper);
+    radios.appendChild(radioWrapper);
   });
   return radios;
 }
@@ -77,30 +80,13 @@ function createCheckbox(id, name, value, label) {
 
   return container;
 }
-function createRadio(id, name, value, text, required) {
-  let radioWrapper = createLabel(name);
-  radioWrapper.className = "radioLabel";
-  let radio = document.createElement('input');
-  radio.setAttribute('type', 'radio');
-  radio.setAttribute('id', id);
-  radio.setAttribute('name', name);
-  radio.setAttribute('value', value);
-  if (required) {
-    radio.setAttribute('required', true);
-  }
-  radioWrapper.appendChild(radio);
-  let radioText = document.createElement("span");
-  radioText.innerText = text;
-  radioWrapper.appendChild(radioText);
-  return radioWrapper;
-}
 
 function margeRadios(parent, radios) {
-  radios.forEach(function(radio) {
+  radios.forEach(function (radio) {
     parent.appendChild(radio);
   });
 }
 
 function createOption(id, name, value, text) {
-  return {id, name, value, text};
+  return { id, name, value, text };
 }

@@ -12,6 +12,7 @@ body {
 
     min-height: calc(100vh - 1px);
 }
+
 h1, h2, h3, h4, h5, h6 {
     margin: 0;
 }
@@ -45,11 +46,11 @@ p{
         width: 100%;
     }
 
-    input[type="number"]{
-        width: calc(100% - 20px);
-    }
-
     form .form-header{
         display: block;
+    }
+
+    .radioLabel+.radioLabel {
+        margin-top: .9em;
     }
 }

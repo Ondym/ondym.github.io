@@ -11,14 +11,10 @@
 .radioLabel {
     font-family: system-ui, sans-serif;
 
-    line-height: 1.1;
+    line-height: 1.0;
     display: grid;
     grid-template-columns: 1em auto;
     gap: 0.5em;
-}
-
-.radioLabel+.radioLabel {
-    margin-top: 1em;
 }
 
 .radioLabel:focus-within {

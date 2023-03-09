@@ -14,11 +14,11 @@
             --radioLabel-color: #66af50;
         }
 
-        *,
+        /* *,
         *:before,
         *:after {
             box-sizing: border-box;
-        }
+        } */
 
         .radioLabel {
             font-family: system-ui, sans-serif;
@@ -86,7 +86,7 @@
     <script src="../script.js"></script>
 </head>
 
-<body>
+<body onload="document.querySelector('.form-wrapper').appendChild(form); postSetup()">
     <div class="header">
         <h1>TESTÍK</h1>
         <h1>TESTÍK</h1>
@@ -97,15 +97,17 @@
 
     <div class="form-wrapper">
         <form action="">
-            <label>Hrajete videohry?</label>
-            <label for="yes" class="radioLabel">
-                <input type="radio" id="yes" name="play_games" value="yes" required>
-                <span>Ano</span>
-            </label>
-            <label for="no" class="radioLabel">
-                <input type="radio" id="no" name="play_games" value="no">
-                <span>Ne</span>
-            </label>
+            <div class="radioWrapper">
+                <label>Hrajete videohry?</label>
+                <label for="ya" class="radioLabel">
+                    <input type="radio" id="ya" name="play_games" value="yes" required>
+                    <span>Ano</span>
+                </label>
+                <label for="n" class="radioLabel">
+                    <input type="radio" id="n" name="play_games" value="no">
+                    <span>Ne</span>
+                </label>
+            </div>
         </form>
     </div>
 
