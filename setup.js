@@ -28,10 +28,10 @@ form.appendChild(genderSelect);
 
 let playGamesLabel = createLabel('play-games', 'Hrajete videohry?');
 playGamesLabel.appendChild(
-    createRadios(
-        [createOption('yes', 'play_games', 'yes', 'Ano', true),
-        createOption('no', 'play_games', 'no', 'Ne')]
-    ));
+    createMultipleChoice([
+        createOption('yes', 'yes', 'Ano'),
+        createOption('no', 'no', 'Ne')
+    ], "play-games", "radio"));
 form.appendChild(playGamesLabel);
 
 // ABOUT VIDEOGAMES
@@ -46,22 +46,45 @@ gamesForm.appendChild(lineSpan);
 let howOftenLabel = createLabel("how-often", "Jak často hrajete videohry?");
 
 howOftenLabel.appendChild(
-    createRadios([
-        createOption("more-than-two", "how-often", 1, "Více než 2h denně"),
-        createOption("less-than-two", "how-often", 2, "Každý den, méně než 2h"),
-        createOption("every-week", "how-often", 3, "Každý týden"),
-        createOption("every-month", "how-often", 4, "Párkrát za měsíc"),
-        createOption("less-than-every-month", "how-often", 5, "Méně než párkrát za měsíc")
-    ]));
-gamesForm.appendChild(howOftenLabel);
+    createMultipleChoice([
+        createOption("more-than-two", 1, "Více než 2h denně"),
+        createOption("less-than-two", 2, "Každý den, méně než 2h"),
+        createOption("every-week", 3, "Každý týden"),
+        createOption("every-month", 4, "Párkrát za měsíc"),
+        createOption("less-than-every-month", 5, "Méně než párkrát za měsíc")
+    ], "how-often", "radio"));
+    gamesForm.appendChild(howOftenLabel);
 
+let whatKindLabel = createLabel("what-kind", "Jaké typy her hrajete nejčastěji?");
+    
+whatKindLabel.appendChild(
+    createMultipleChoice([
+        createOption("strategic", 1, "Strategické"),
+        createOption("shooting", 2, "Střílecí"),
+        createOption("building", 3, "Budovací"),
+        createOption("sport", 4, "Sportovní"),
+        createOption("sandobox", 5, "Sandboxové"),
+        createOption("platform", 6, "Platformové"),
+        createOption("other", 7, "Jiné")
+    ], "what-kind", "checkbox"));
+gamesForm.appendChild(whatKindLabel);
+
+let gamesOnline = createLabel('online-games', 'Hrajete videohry spíše online, nebo offline?');
+gamesOnline.appendChild(
+    createMultipleChoice([
+        createOption('online', 'offline', 'Online'),
+        createOption('offline', 'online', 'Offline')
+    ], "online-games", "radio"));
+
+gamesForm.appendChild(gamesOnline);
+    
 form.appendChild(gamesForm);
 
 let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu reflexů', false);
 form.appendChild(submitButton);
 
 function postSetup() {
-    document.getElementsByName("play_games").forEach(radio => {
+    document.getElementsByName("play-games").forEach(radio => {
         let gamesForm = document.getElementById("gamesSection");
         radio.addEventListener("change", function (e) {
             if (e.target.id == "yes") {

@@ -39,17 +39,18 @@ function createSelect(id, name, required, options) {
   return select;
 }
 
-function createRadios(radioParams) { //, id, name, value, text, required
+function createMultipleChoice(radioParams, name, type) { //, id, name, value, text, required
   let radios = document.createElement("div");
-  console.log(radioParams);
+  // console.log(radioParams);
   radios.className = "radiosWrapper";
   radioParams.forEach(r => {
+    console.log(r);
     let radioWrapper = createLabel(r.id);
     radioWrapper.className = "radioLabel";
     let radio = document.createElement('input');
-    radio.setAttribute('type', 'radio');
+    radio.setAttribute('type', type);
     radio.setAttribute('id', r.id);
-    radio.setAttribute('name', r.name);
+    radio.setAttribute('name', name);
     radio.setAttribute('value', r.value);
     if (r.required) {
       radio.setAttribute('required', true);
@@ -81,12 +82,6 @@ function createCheckbox(id, name, value, label) {
   return container;
 }
 
-function margeRadios(parent, radios) {
-  radios.forEach(function (radio) {
-    parent.appendChild(radio);
-  });
-}
-
-function createOption(id, name, value, text) {
-  return { id, name, value, text };
+function createOption(id, value, text) {
+  return { id, value, text };
 }
