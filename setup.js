@@ -38,6 +38,7 @@ form.appendChild(playGamesLabel);
 
 let gamesForm = document.createElement('div');
 gamesForm.id = "gamesSection";
+gamesForm.className = "hide";
 
 let lineSpan = document.createElement("span");
 lineSpan.className = "line";
@@ -73,7 +74,7 @@ let gamesOnline = createLabel('online-games', 'Hrajete videohry spíše online, 
 gamesOnline.appendChild(
     createMultipleChoice([
         createOption('online', 'offline', 'Online'),
-        createOption('offline', 'online', 'Offline')
+        createOption('offline', 'online', 'Offline'),
     ], "online-games", "radio"));
 
 gamesForm.appendChild(gamesOnline);
