@@ -1,4 +1,4 @@
-.form-wrapper {
+.wrapper {
     max-width: 600px;
     width: calc(90% - 20px);
     padding: 40px;
@@ -50,19 +50,25 @@ input[type="checkbox"] {
 }
 
 input[type="submit"] {
+    display: none;
+}
+
+button {
     background-color: var(--radioLabel-color);
     color: #fff;
     border: none;
     padding: 10px 20px;
+    height: calc(1em + 20px);
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 400;
     transition: background-color 0.2s ease-in-out;
+    display: block;
 }
 
-input[type="submit"]:hover {
-    background-color: #459c5b;
+button:hover {
+    background-color: #4ea84b;
 }
 
 :root {

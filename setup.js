@@ -4,7 +4,7 @@ form.setAttribute('method', 'GET');
 form.setAttribute('action', 'form.php');
 
 let formTitle = document.createElement('div');
-formTitle.className = "form-header";
+formTitle.className = "form-header only-mobile";
 formTitle.innerText += "Dotazník:";
 form.appendChild(formTitle);
 
@@ -88,11 +88,16 @@ function postSetup() {
     document.getElementsByName("play-games").forEach(radio => {
         let gamesForm = document.getElementById("gamesSection");
         radio.addEventListener("change", function (e) {
+            console.log(e);
             if (e.target.id == "yes") {
                 gamesForm.className = "";
             } else {
                 gamesForm.className = "hide";
             }
         });
+    });
+
+    document.getElementById("begin-test").addEventListener("click", function(e){
+        e.target.parentElement.style.display = "none";
     });
 }

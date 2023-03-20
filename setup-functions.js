@@ -44,7 +44,6 @@ function createMultipleChoice(radioParams, name, type) { //, id, name, value, te
   // console.log(radioParams);
   radios.className = "radiosWrapper";
   radioParams.forEach(r => {
-    console.log(r);
     let radioWrapper = createLabel(r.id);
     radioWrapper.className = "radioLabel";
     let radio = document.createElement('input');

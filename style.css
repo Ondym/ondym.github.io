@@ -13,30 +13,100 @@ body {
     min-height: calc(100vh - 1px);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     margin: 0;
 }
 
-.header h2{
+.header h2 {
     margin-top: -.1em;
     line-height: 1;
 }
 
-p{
+p {
     text-align: justify;
+}
+
+.reflex-test-wrapper {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 45px;
+    min-height: 20vh;
+    flex-wrap: wrap;
+}
+
+#test-field {
+    align-self: flex-end;
+    display: block;
+    width: auto;
+    height: auto;
+    border: solid 2.5px #fff;
+}
+
+#clickable-block, .button-sides {
+    display: block;
+    max-width: calc(600px * .8);
+    width: calc((90vw - 20px) * .8);
+    max-height: calc(600px * .8);
+    height: calc((90vw - 20px) * .8);
+}
+
+#clickable-block {
+    background-color: var(--radioLabel-color);
+}
+
+.button-sides {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #4b4b4b86;
+    position: absolute;
+}
+
+.only-mobile {
+    display: none;
+}
+
+em {
+    font-style: normal;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 @media screen and (max-width: 750px) {
     body {
-        background: linear-gradient(180deg, rgba(41, 41, 41, 1) 0%, rgba(18, 18, 18, 1) 50%);;
+        background: linear-gradient(180deg, rgba(41, 41, 41, 1) 0%, rgba(18, 18, 18, 1) 50%);
+        ;
         padding: 0;
     }
 
-    .form-wrapper, .header {
+    .wrapper,
+    .header {
         width: 90%;
         box-shadow: none;
         background: none;
         padding: 20px;
+    }
+
+    .header {
+        width: 100%;
+        padding: 20px calc(5%);
+    }
+
+    .reflex-test-wrapper {
+        margin-top: -10px;
+    }
+
+    #clickable-block, .button-sides {
+        width: 80vw;
+        height: 80vw;
     }
 
     input[type="text"],
@@ -46,11 +116,15 @@ p{
         width: 100%;
     }
 
-    form .form-header{
+    form .form-header {
         display: block;
     }
 
     .radioLabel+.radioLabel {
         margin-top: .9em;
+    }
+
+    .only-mobile {
+        display: inline;
     }
 }
