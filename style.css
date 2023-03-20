@@ -49,24 +49,32 @@ p {
     border: solid 2.5px #fff;
 }
 
-#clickable-block, .button-sides {
+#clickable-block, .button-sides, .test-text {
     display: block;
     max-width: calc(600px * .8);
     width: calc((90vw - 20px) * .8);
     max-height: calc(600px * .8);
     height: calc((90vw - 20px) * .8);
+    cursor: pointer;
 }
 
 #clickable-block {
     background-color: var(--radioLabel-color);
 }
 
-.button-sides {
+.button-sides, .test-text {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #4b4b4b86;
     position: absolute;
+    padding: 2.5em;
+    font-size: 19px;
+    background: none;
+}
+
+.button-sides{
+    background: #00000086;
+    cursor: default;
 }
 
 .only-mobile {
@@ -78,6 +86,10 @@ em {
     font-size: 1.1em;
     text-transform: uppercase;
     font-weight: bold;
+}
+
+p[class="center"]{
+    text-align: center !important;
 }
 
 @media screen and (max-width: 750px) {
@@ -104,9 +116,14 @@ em {
         margin-top: -10px;
     }
 
-    #clickable-block, .button-sides {
+    #clickable-block, .button-sides, .test-text {
         width: 80vw;
         height: 80vw;
+        padding: 5px;
+    }
+
+    .test-text{
+        font-size: 0.9em;
     }
 
     input[type="text"],
