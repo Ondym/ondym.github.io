@@ -1,6 +1,7 @@
 // let formWrapper = document.querySelector('.form-wrapper');
 let form = document.createElement('form');
-form.setAttribute('method', 'GET');
+form.setAttribute('method', 'POST');
+form.setAttribute('id', 'main-formular');
 form.setAttribute('action', 'form.php');
 
 let formTitle = document.createElement('div');
@@ -20,18 +21,18 @@ form.appendChild(ageInput);
 let genderLabel = createLabel('gender', 'Pohlaví:');
 let genderSelect = createSelect('gender', 'gender', true, [
     { value: '', text: 'Vyberte své pohlaví', disabled: true, selected: true },
-    { value: 'male', text: 'Muž' },
-    { value: 'female', text: 'Žena' },
+    { value: '1', text: 'Muž' },
+    { value: '2', text: 'Žena' },
 ]);
 form.appendChild(genderLabel);
 form.appendChild(genderSelect);
 
-let playGamesLabel = createLabel('play-games', 'Hrajete videohry?');
+let playGamesLabel = createLabel('plays-games', 'Hrajete videohry?');
 playGamesLabel.appendChild(
     createMultipleChoice([
-        createOption('yes', 'yes', 'Ano'),
-        createOption('no', 'no', 'Ne')
-    ], "play-games", "radio"));
+        createOption('yes', 1, 'Ano'),
+        createOption('no', 0, 'Ne')
+    ], "plays-games", "radio"));
 form.appendChild(playGamesLabel);
 
 // ABOUT VIDEOGAMES
@@ -85,10 +86,9 @@ let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu r
 form.appendChild(submitButton);
 
 function postSetup() {
-    document.getElementsByName("play-games").forEach(radio => {
+    document.getElementsByName("plays-games").forEach(radio => {
         let gamesForm = document.getElementById("gamesSection");
         radio.addEventListener("change", function (e) {
-            console.log(e);
             if (e.target.id == "yes") {
                 gamesForm.className = "";
             } else {
@@ -99,5 +99,11 @@ function postSetup() {
 
     document.getElementById("begin-test").addEventListener("click", function(e){
         e.target.parentElement.style.display = "none";
+    });
+    document.getElementById("test-explaining").addEventListener("click", function(){
+        beginTest();
+    });
+    document.getElementById("clickable-block").addEventListener("click", function(){
+        blockClicked();
     });
 }

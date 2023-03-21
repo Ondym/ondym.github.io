@@ -23,7 +23,7 @@ label {
 
 .hide{display: none;}
 
-form .form-header{
+.wrapper .form-header{
     font-size: 25px;
     margin-top: -1.5em;
     margin-left: -.3em;

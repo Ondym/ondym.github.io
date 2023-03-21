@@ -39,6 +39,15 @@ p {
     margin-top: 45px;
     min-height: 20vh;
     flex-wrap: wrap;
+    padding: 40px 60px 60px 60px;
+}
+
+.warning {
+    font-weight: bold;
+    font-size: 1.3em;
+    letter-spacing: 1.5px;
+    margin-bottom: .8em;
+    text-align: center;
 }
 
 #test-field {
@@ -58,8 +67,8 @@ p {
     cursor: pointer;
 }
 
-#clickable-block {
-    background-color: var(--radioLabel-color);
+#clickable-block{
+    background: #000;
 }
 
 .button-sides, .test-text {
@@ -70,6 +79,10 @@ p {
     padding: 2.5em;
     font-size: 19px;
     background: none;
+}
+
+.test-text {
+    background-color: var(--radioLabel-color);
 }
 
 .button-sides{
@@ -119,11 +132,12 @@ p[class="center"]{
     #clickable-block, .button-sides, .test-text {
         width: 80vw;
         height: 80vw;
-        padding: 5px;
+        padding: 15px;
     }
 
     .test-text{
         font-size: 0.9em;
+        line-height: 1.4em;
     }
 
     input[type="text"],
