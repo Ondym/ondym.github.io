@@ -36,7 +36,7 @@ function blockClicked() {
     lightUp = false;
     cheated = false;
     
-    if (result.length < 2) {
+    if (result.length < 5) {
         setTimeout(() => {cheated = false}, 700)
         setTimeout(() => {
             block.style.backgroundColor = "#af5059";
@@ -44,12 +44,9 @@ function blockClicked() {
             stopWatch(true);
         }, Math.floor(Math.random() * 4000) + 2000);
     } else {
-        console.log(result);
         result = String(result);
-        console.log(resultInput);
-        
         resultInput.value = result;
-        // document.getElementById("submit").click();
+        document.getElementById("submit").click();
     }
 }
 

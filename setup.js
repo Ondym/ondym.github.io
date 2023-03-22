@@ -55,19 +55,19 @@ howOftenLabel.appendChild(
         createOption("every-month", "Mesíčně", "Párkrát za měsíc"),
         createOption("less-than-every-month", "Málo", "Méně než párkrát za měsíc")
     ], "how-often", "radio"));
-    gamesForm.appendChild(howOftenLabel);
+gamesForm.appendChild(howOftenLabel);
 
 let whatKindLabel = createLabel("what-kind", "Jaké typy her hrajete nejčastěji?");
-    
+
 whatKindLabel.appendChild(
     createMultipleChoice([
-        createOption("strategic", 1, "Strategické"),
-        createOption("shooting", 2, "Střílecí"),
-        createOption("building", 3, "Budovací"),
-        createOption("sport", 4, "Sportovní"),
-        createOption("sandobox", 5, "Sandboxové"),
-        createOption("platform", 6, "Platformové"),
-        createOption("other", 7, "Jiné")
+        createOption("strategic","1, ", "Strategické"),
+        createOption("shooting", "2, ", "Střílecí"),
+        createOption("building", "3, ", "Budovací"),
+        createOption("sport",    "4, ", "Sportovní"),
+        createOption("sandobox", "5, ", "Sandboxové"),
+        createOption("platform", "6, ", "Platformové"),
+        createOption("other",    "7, ", "Jiné")
     ], "what-kind[]", "checkbox"));
 gamesForm.appendChild(whatKindLabel);
 
@@ -79,16 +79,17 @@ gamesOnline.appendChild(
     ], "online-games", "radio"));
 
 gamesForm.appendChild(gamesOnline);
-    
+
 form.appendChild(gamesForm);
 
-let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu reflexů', false);
-form.appendChild(submitButton);
 
 let resultInput = createInput('text', 'reflexes', 'reflexes', 'XXXXXXXX', true);
 resultInput.style.display = "none";
 resultInput.style.opacity = 0;
 form.appendChild(resultInput);
+
+let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu reflexů', false);
+form.appendChild(submitButton);
 
 function postSetup() {
     document.getElementsByName("plays-games").forEach(radio => {
@@ -102,13 +103,32 @@ function postSetup() {
         });
     });
 
-    document.getElementById("begin-test").addEventListener("click", function(e){
+    document.getElementById("begin-test").addEventListener("click", function (e) {
+        let invalid = document.getElementById("age").value == "";
+        invalid = invalid || document.getElementById("gender").value == "";
+        invalid = invalid || !(document.getElementById("yes").checked || document.getElementById("no").checked);
+        if (document.getElementById("yes").checked) {
+            let partValid = false;
+            document.getElementsByName("how-often").forEach(function(box) {
+                partValid = partValid || box.checked;
+            });
+            partValid = false;
+            document.getElementsByName("what-kind[]").forEach(function(box) {
+                partValid = partValid || box.checked;
+            });
+            invalid = invalid || !partValid;
+            invalid = invalid || !(document.getElementById("online").checked || document.getElementById("offline").checked);
+        }
+        if (invalid) {
+            alert("Před spuštěním testu prosím vyplňte celý dotazník ");
+            return;
+        }
         e.target.parentElement.style.display = "none";
     });
-    document.getElementById("test-explaining").addEventListener("click", function(){
+    document.getElementById("test-explaining").addEventListener("click", function () {
         beginTest();
     });
-    document.getElementById("clickable-block").addEventListener("click", function(){
+    document.getElementById("clickable-block").addEventListener("click", function () {
         blockClicked();
     });
     resultInput = document.getElementById("reflexes");
