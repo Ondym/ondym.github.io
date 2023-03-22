@@ -1,8 +1,8 @@
 // let formWrapper = document.querySelector('.form-wrapper');
 let form = document.createElement('form');
-form.setAttribute('method', 'POST');
 form.setAttribute('id', 'main-formular');
 form.setAttribute('action', 'form.php');
+form.setAttribute('method', 'POST');
 
 let formTitle = document.createElement('div');
 formTitle.className = "form-header only-mobile";
@@ -21,8 +21,8 @@ form.appendChild(ageInput);
 let genderLabel = createLabel('gender', 'Pohlaví:');
 let genderSelect = createSelect('gender', 'gender', true, [
     { value: '', text: 'Vyberte své pohlaví', disabled: true, selected: true },
-    { value: '1', text: 'Muž' },
-    { value: '2', text: 'Žena' },
+    { value: 'muž', text: 'Muž' },
+    { value: 'žena', text: 'Žena' },
 ]);
 form.appendChild(genderLabel);
 form.appendChild(genderSelect);
@@ -30,8 +30,8 @@ form.appendChild(genderSelect);
 let playGamesLabel = createLabel('plays-games', 'Hrajete videohry?');
 playGamesLabel.appendChild(
     createMultipleChoice([
-        createOption('yes', 1, 'Ano'),
-        createOption('no', 0, 'Ne')
+        createOption('yes', "ANO", 'Ano'),
+        createOption('no', "NE", 'Ne')
     ], "plays-games", "radio"));
 form.appendChild(playGamesLabel);
 
@@ -49,11 +49,11 @@ let howOftenLabel = createLabel("how-often", "Jak často hrajete videohry?");
 
 howOftenLabel.appendChild(
     createMultipleChoice([
-        createOption("more-than-two", 1, "Více než 2h denně"),
-        createOption("less-than-two", 2, "Každý den, méně než 2h"),
-        createOption("every-week", 3, "Každý týden"),
-        createOption("every-month", 4, "Párkrát za měsíc"),
-        createOption("less-than-every-month", 5, "Méně než párkrát za měsíc")
+        createOption("more-than-two", "Více než 2h denně", "Více než 2h denně"),
+        createOption("less-than-two", "Méně než 2h denně", "Každý den, méně než 2h"),
+        createOption("every-week", "Týdně", "Každý týden"),
+        createOption("every-month", "Mesíčně", "Párkrát za měsíc"),
+        createOption("less-than-every-month", "Málo", "Méně než párkrát za měsíc")
     ], "how-often", "radio"));
     gamesForm.appendChild(howOftenLabel);
 
@@ -68,7 +68,7 @@ whatKindLabel.appendChild(
         createOption("sandobox", 5, "Sandboxové"),
         createOption("platform", 6, "Platformové"),
         createOption("other", 7, "Jiné")
-    ], "what-kind", "checkbox"));
+    ], "what-kind[]", "checkbox"));
 gamesForm.appendChild(whatKindLabel);
 
 let gamesOnline = createLabel('online-games', 'Hrajete videohry spíše online, nebo offline?');
@@ -84,6 +84,11 @@ form.appendChild(gamesForm);
 
 let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu reflexů', false);
 form.appendChild(submitButton);
+
+let resultInput = createInput('text', 'reflexes', 'reflexes', 'XXXXXXXX', true);
+resultInput.style.display = "none";
+resultInput.style.opacity = 0;
+form.appendChild(resultInput);
 
 function postSetup() {
     document.getElementsByName("plays-games").forEach(radio => {
@@ -106,4 +111,5 @@ function postSetup() {
     document.getElementById("clickable-block").addEventListener("click", function(){
         blockClicked();
     });
+    resultInput = document.getElementById("reflexes");
 }
