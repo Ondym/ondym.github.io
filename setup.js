@@ -92,6 +92,11 @@ let submitButton = createInput('submit', 'submit', 'submit', 'Přejít k testu r
 form.appendChild(submitButton);
 
 function postSetup() {
+    /*setTimeout(() => {
+        let reklama = document.getElementsByTagName("div");
+        reklama = reklama[reklama.length-3];
+        reklama.style.display = "none";
+    }, 20);*/
     document.getElementsByName("plays-games").forEach(radio => {
         let gamesForm = document.getElementById("gamesSection");
         radio.addEventListener("change", function (e) {

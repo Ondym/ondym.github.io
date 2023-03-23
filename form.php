@@ -30,6 +30,7 @@ $gender = $_POST['gender'];
 $plays_games = $_POST['plays-games'];
 $reflexes = $_POST['reflexes'];
 
+$timestamp = gmdate("Y-m-d\ H:i:s\ ", time());
 
 if (empty($_POST['how-often'])) {
   $how_often = "-";
@@ -37,7 +38,7 @@ if (empty($_POST['how-often'])) {
   $how_often = $_POST['how-often'];
 }
 if (empty($_POST['what-kind'])) {
-  $what_kind = -1;
+  $what_kind = "-";
 } else {
   $what_kind = implode($_POST['what-kind']);
 }
@@ -49,9 +50,9 @@ if (empty($_POST['online-games'])) {
 
 // Connect to MySQL database
 $servername = "sql4.webzdarma.cz";
-$username = "*****************";
-$password = "****************";
-$dbname = "****************";
+$username = "****";
+$password = "****";
+$dbname = "****";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -61,8 +62,8 @@ if ($conn -> connect_error) {
 
 
 // Insert the values into the results table
-$sql = "INSERT INTO results (`age`, `gender`, `plays_games`, `how_often`, `game_types`, `the_line`, `reflexes`) 
-VALUES ('$age', '$gender', '$plays_games', '$how_often', '$what_kind', '$online_games', '$reflexes')";
+$sql = "INSERT INTO results (`datetime`, `age`, `gender`, `plays_games`, `how_often`, `game_types`, `the_line`, `reflexes`) 
+VALUES ('$timestamp', '$age', '$gender', '$plays_games', '$how_often', '$what_kind', '$online_games', '$reflexes')";
 // $sql = "INSERT INTO `testing` (`name`, `gender`, `age`) VALUES ('PEPA TESTR', '2', '9')";
 
 if ($conn->query($sql) === TRUE) {
