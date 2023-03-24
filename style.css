@@ -87,7 +87,7 @@ p {
 }
 
 .test-text {
-    background-color: var(--radioLabel-color);
+    background-color: var(--pageGreen);
 }
 
 .button-sides{
@@ -131,6 +131,20 @@ td{
 th{
     border: 2px #fff solid;
     background-color: #fff5;
+}
+
+thead{
+    position: sticky;
+    top: 0px;
+    background: rgb(41, 41, 41);
+    height: 2.5em;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+thead .identifier{
+    border: 2px var(--pageGreen) solid;
+    background-color: var(--pageGreenAlfa);
 }
 
 @media screen and (max-width: 750px) {

@@ -14,7 +14,7 @@
     margin-top: 20px;
     font-size: 50px;
     text-decoration: underline;
-    text-decoration-color: var(--radioLabel-color);
+    text-decoration-color: var(--pageGreen);
 }
   </style>
 </head>
