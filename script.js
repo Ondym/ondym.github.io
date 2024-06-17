@@ -3,6 +3,7 @@ let nodeSize;
 let totalBlobs;
 let lastBlobNodes;
 let n;
+let colorify = false;
 let HUEstep;
 
 Object.defineProperty(Array.prototype, 'includesVector', {
@@ -48,26 +49,28 @@ function draw() {
     background(255);
     fill(0);
 
-    for (let i = 0; i < nodes.length; i++) {
-        for (let j = 0; j < nodes[0].length; j++) {
-            if (nodes[i][j]) {
-                rect(i*nodeSize, j*nodeSize, nodeSize, nodeSize);
+    if (colorify) {
+        colorMode(HSB);
+        for (let i = 0; i < totalBlobs.length; i++) {
+            for (let j = 0; j < totalBlobs[i].length; j++) {
+                fill(i * HUEstep, 90, 90);
+                rect(totalBlobs[i][j].x * nodeSize, totalBlobs[i][j].y * nodeSize, nodeSize, nodeSize);
+            }
+        }
+        colorMode(RGB);
+    } else {
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = 0; j < nodes[0].length; j++) {
+                if (nodes[i][j]) {
+                    rect(i*nodeSize, j*nodeSize, nodeSize, nodeSize);
+                }
             }
         }
     }
 
-    
-    // console.log(HUEstep);
-    colorMode(HSB);
-    for (let i = 0; i < totalBlobs.length; i++) {
-        for (let j = 0; j < totalBlobs[i].length; j++) {
-            fill(i * HUEstep, 90, 90);
-            rect(totalBlobs[i][j].x * nodeSize, totalBlobs[i][j].y * nodeSize, nodeSize, nodeSize);
-        }
-    }
-    colorMode(RGB);
+    if (colorify) fill(10);
+    else          fill(215, 120, 18);
 
-    fill(10);
     for (let i = 0; i < lastBlobNodes.length; i++) {
         rect((lastBlobNodes[i].x + .25) * nodeSize, (lastBlobNodes[i].y + .25) * nodeSize, nodeSize/2, nodeSize/2);
     }
@@ -75,7 +78,12 @@ function draw() {
 
 function mouseClicked() {
     lastBlobNodes = getBlob(floor(mouseX/nodeSize), floor(mouseY/nodeSize));
-    // console.log(lastBlobNodes);
+}
+
+function keyPressed() {
+    if (keyCode == ENTER) {
+        colorify = !colorify;
+    }
 }
 
 function genValue(_p) {
@@ -90,23 +98,19 @@ function getBlob(_x, _y) {
 
     let m = 0;
     while (opened.length > 0 && m < 100) {
-        // break;
-        m++;
+        m++; // insurance
         let newOpened = new Array;
 
         for (let i = 0; i < opened.length; i++) {
             for (let X = -1; X < 2; X++) {
                 for (let Y = -1; Y < 2; Y++) {
-                    // console.log(X, Y);
                     if (abs(X) + abs(Y) == 1) {
                         let nextVector = simpleVector(
                             (opened[i].x + X + nodes.length) % nodes.length, // adding nodes.length to wrap -1 to the other side
                             (opened[i].y + Y + nodes.length) % nodes.length
                         );
-                        if (!blobNodes.includesVector(nextVector) 
-                            && nodes[nextVector.x][nextVector.y]) {
+                        if (!blobNodes.includesVector(nextVector) && nodes[nextVector.x][nextVector.y]) {
                             newOpened.push(nextVector);
-                            // console.log(newOpened);
                             blobNodes.push(nextVector);
                         }
                     }
@@ -139,8 +143,6 @@ function separateBlobs() {
             }
         }
     }
-
-    console.log(nodesRegistered);
 
     return blobs;
 }
