@@ -1,67 +1,53 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dotazník</title>
-    <link rel="stylesheet" href="form.css">
-    <link rel="stylesheet" href="style.css">
-
-    <script src="setup-functions.js"></script>
-    <script src="setup.js"></script>
+    <title>MCMC</title>
+    <script src="../../../../Programming/Javascript/P5/p5.min.js"></script>
     <script src="script.js"></script>
 
-    <meta property="og:title" content="Vliv videoher na lidské reflexy" />
-    <meta property="og:type" content="dotazník" />
-    <meta property="og:url" content="http://testing-osz.euweb.cz" />
-    <meta property="og:description" content="Tento dotazník je součástí školního projektu v předmětu občanský a společenskovědní základ. Cílem našeho
-    průzkumu je zjistit jaký mají videohry vliv na reflexy lidí napříč různými skupinami.">
-    <!-- <meta property="og:image" content="" /> -->
+    <style>
+        *{
+            overflow-y: hidden;
+        }
+
+        body{
+            padding: 10vh 0 0 0;
+            /* height: 100vh; */
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            color: #fff;
+            align-items: center;
+            background: #098842;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        canvas{
+            border: 1px solid #ccc;
+        }
+
+        h1{
+            text-align: left;
+            padding: 0 5vw 0 0;;
+        }
+
+        .header{
+            top: 0;
+            width: 100%;
+            position: fixed;
+            padding: 3.5vh 4vw;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+    </style>
 </head>
-
-<body onload="document.querySelector('.form-wrapper').appendChild(form); postSetup()" style="margin-bottom: 30px;">
+<body>
     <div class="header">
-        <h1>Dotazník</h1>
-        <h2>Vliv videoher na lidské reflexy</h2>
-        <p>Tento dotazník je součástí školního projektu v předmětu občanský a společenskovědní základ. Cílem našeho
-            průzkumu je zjistit jaký mají videohry vliv na reflexy lidí napříč různými skupinami. Po vyplnění dotazníku absolvujete krátký a jednoduchý test reflexů.</p>
-        <!-- <p class="only-mobile">Mobilní zařízení jsou podporována, ale <em>Doporučujeme vyplňovat dotazník na
-                počítači.</em></p> -->
+        Velikost gridu 100x100. Stisknutím [ENTER] togglujete mezi barevným rozřazením blobů. Kliknutím myší na bod se zvýrazní celý jeho blob.
     </div>
-
-    <div class="form-wrapper wrapper">
-    </div>
-
-    <div class="footer"></div>
-
-    <div class="reflex-test-wrapper wrapper">
-        <div class="form-header">
-            Test reflexů:
-        </div>
-        <div class="warning">Následující test reflexů spusťte až PO VYPLNĚNÍ CELÉHO DOTAZNÍKU</div>
-        <div id="test-field">
-            <div id="test-explaining" class="test-text">
-                <div>
-                    <p>
-                        Průběh testu: Toto čtvercové pole bude v náhodných časových intevalech měnit barvu. Vaším úkolem
-                        je na pole co nejdříve po změně barvy kliknout. Pokud na pole kliknete, když nebude červené, Váš
-                        pokus nebude započítán. Po dokončení testu budou všechny Vaše odpovědi automaticky odeslány.
-                    </p>
-                    <p class="center">
-                        <em>Pro započetí testu klikněte <span class="only-mobile">prstem</span> kamkoliv do tohoto
-                            pole.</em>
-                    </p>
-                </div>
-            </div>
-            <div class="button-sides">
-                <button id="begin-test">Začít test reflexů</button>
-            </div>
-            <div id="clickable-block">
-            </div>
-        </div>
-    </div>
-
+    <h1 id="tit">fewfewfg</h1>
 </body>
 </html>
