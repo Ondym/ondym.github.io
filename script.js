@@ -6,9 +6,8 @@ let n;
 let colorify = false;
 let HUEstep;
 
-let startingTime;
-let totalTime = 0;
 let maxBlobSize = 0;
+let lastStateEnergy = 0; 
 
 let info;
 let totalInfo;
@@ -18,6 +17,9 @@ let totalStats = {
     nodesPerBlob: 0,
     totalEnergy: 0
 }
+
+let k_B = 1; // setting the Boltzmann constant to 1
+let T = 20;  // temperature  of the box (in K) 
 
 let doChanges = true;
 
@@ -41,7 +43,7 @@ function setup() {
     
     // RANDOM SCATTERING OF POINT IN THE BIGINNING 50/50
     nodes = new Array;
-        let size = 100;
+        let size = 50;
         n = 0;
         for (let i = 0; i < size; i++) {
             nodes.push(new Array);
@@ -53,18 +55,30 @@ function setup() {
         
     nodeSize = width / nodes.length;
     HUEstep = 200 / (maxBlobSize ** 1/2);
+
+    lastStateEnergy = countDifferences();
+    lastBlobNodes = new Array;
 }
 
 function draw() {
-    lastBlobNodes = new Array;
+    noStroke();
     
     // CHANGING
     
-    let changePos = simpleVector(floor(random(100)), floor(random(100)));
+    let changePos = simpleVector(floor(random(nodes.length)), floor(random(nodes.length)));
     nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
     
     let changedPointEnergy = calcNodeEnergy(changePos.x, changePos.y);
     
+    deltaEnergy = 4 - 2*changedPointEnergy;
+    // console.log(changePos, deltaEnergy);
+    let alpha = acceptanceRatio(deltaEnergy);
+
+    
+    if (!random() < alpha) {
+        nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
+    }
+
     // DATA CHARACTERISTICS
 
     totalBlobs = separateBlobs();
@@ -72,23 +86,20 @@ function draw() {
     
     let avgNodesPerBlob = floor(n / totalBlobs.length * 10**4) / 10**4;
     
-    info.innerText = "Počet (černých) bodů: " + n + "\nPočet blobů: " + totalBlobs.length + "\nAVG # bodů v blobu: " + avgNodesPerBlob;
+    // info.innerText = "Počet (černých) bodů: " + n + "\nEnergie: " + lastStateEnergy + "\nAVG # bodů v blobu: " + avgNodesPerBlob;
     
     totalStats.nodesPerBlob += avgNodesPerBlob; 
     totalStats.blobCount += totalBlobs.length;
     totalStats.totalEnergy += countDifferences();
     totalStats.rounds++;
     
-    let time = new Date().getTime();
-    totalTime += time - startingTime;
-    startingTime = time;
-    
+
     totalInfo.innerText = 
     "Počet kol: " + totalStats.rounds + 
-    "\nUplynulý čas: " + (time - startingTime) / 1000 + 
-    "s\nAVG počet blobů: " + floor(totalStats.blobCount/totalStats.rounds * 10**4) / 10**4 + 
+    "\nAVG počet blobů: " + floor(totalStats.blobCount/totalStats.rounds * 10**4) / 10**4 + 
     "\nAVG # bodů v blobu: " + floor(totalStats.nodesPerBlob/totalStats.rounds * 10**4) / 10**4 +
     "\nAVG energie: " + floor(totalStats.totalEnergy/totalStats.rounds * 10**4) / 10**4;
+
     
     //      VISUALS
     noStroke();
@@ -124,6 +135,9 @@ function draw() {
 }
 
 function mouseClicked() {
+    if (constrain(mouseX, 0, width) != mouseX || constrain(mouseY, 0, height) != mouseY) {
+        return;
+    }
     lastBlobNodes = getBlob(floor(mouseX/nodeSize), floor(mouseY/nodeSize));
 }
 
@@ -241,7 +255,7 @@ function calcNodeEnergy(_x, _y) {
             if (abs(X) + abs(Y) == 1) {
                 let neighbour = simpleVector(
                     (_x + X + nodes.length)    % nodes.length, // adding nodes.length to wrap -1 to the other side
-                    (_y + Y + nodes[i].length) % nodes.length
+                    (_y + Y + nodes[_x].length) % nodes.length
                 );
 
                 if (nodes[_x][_y] != nodes[neighbour.x][neighbour.y]) {
@@ -252,4 +266,8 @@ function calcNodeEnergy(_x, _y) {
     }
 
     return energy;
+}
+
+function acceptanceRatio(_delta) {
+    return min(1, exp(-(_delta/(k_B*T))));
 }
