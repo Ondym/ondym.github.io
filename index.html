@@ -28,9 +28,23 @@
             border: 1px solid #ccc;
         }
 
-        h1{
+        .data-char{
             text-align: left;
             padding: 0 5vw 0 0;;
+        }
+
+        h2{
+            padding: .4em .5em;
+            margin: 0;
+        }
+
+        h1{
+            padding: 0;
+            margin: .8em 0 0 0;
+        }
+
+        #avg-tit{
+            border: 1px solid #fff;
         }
 
         .header{
@@ -48,6 +62,12 @@
     <div class="header">
         Velikost gridu 100x100. Stisknutím [ENTER] togglujete mezi barevným rozřazením blobů. Kliknutím myší na bod se zvýrazní celý jeho blob.
     </div>
-    <h1 id="tit">fewfewfg</h1>
+    <div class="data-char">
+        <h1>Aktuální kolo</h1>
+        <h2 id="tit"></h2>
+
+        <h1>Průměr dosavadních kol</h1>
+        <h2 id="avg-tit"></h2>
+    </div>
 </body>
 </html>
