@@ -6,7 +6,6 @@ from matplotlib import ticker
 import numpy as np
 from PIL import Image
 import os
-import sys
 from datetime import datetime
 
 iterations = 1000000
@@ -16,25 +15,29 @@ list_energii = np.array([])
 list_energii_ = []
 standartDeviations = []
 T = 5
-min_T = 0.01
-max_T = 10
+min_T = 0.003
+max_T = 20
 list_T = []
 skipCount = iterations * .1
 
-samples = [min_T, 0.3, 0.6, 0.9, 1, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.5, 2.7, 3, 3.25, 3.5, 4, 5, 6, 7, 8, 9, max_T]
+samples = [min_T]
+while samples[len(samples) - 1] < max_T:
+    samples.append(samples[-1]+.5)
+samples[-1] = max_T
 
-flags = []
-
-print("# of samples: ", len(samples))
+flags = [0, 1, 3, 5, 8, 10, 20, 30, 40, 50, 60, 70, 80]
+print(flags)
+print(len(samples))
 
 def pi(E, T):
-    if -E/T > 1:
-        return 1
-
-    return math.exp(-E / T)
+    try:
+        return math.exp(-E / T)
+    except:
+        print("UDAJNE NULA:", T, E)
+        quit()
 
 timestamp = datetime.now().strftime("%H_%M_%S")
-def create_grid_image(array, output_dir='images-day2', output_file='grid_image.png'):
+def create_grid_image(array, output_dir='images', output_file='grid_image.png'):
     dir_path = os.path.join(output_dir, timestamp)
     os.makedirs(dir_path, exist_ok=True)
 
@@ -51,15 +54,15 @@ def create_grid_image(array, output_dir='images-day2', output_file='grid_image.p
                 for y in range(cell_size):
                     pixels[j * cell_size + x, i * cell_size + y] = color
 
-    image = image.resize((512, 512), Image.NEAREST)
+    image = image.resize((500, 500), Image.NEAREST)
     file_path = os.path.join(dir_path, output_file)
     image.save(file_path)
     print(f"Image saved as {file_path}")
 
 for hh in samples:
-    print(str(hh))
+    print(hh)
     list = [[randint(0, 1) for i in range(list_l)] for j in range(list_l)]
-    T = hh
+    T = min_T + (max_T-min_T)*hh/iterations_T
     list_energii_ = []
     energie = 0
     for i in range(len(list)):
@@ -70,13 +73,6 @@ for hh in samples:
                 energie += 1
 
     for h in range(iterations):
-        if ((h+1)%int(iterations/25) == 0):
-            percent = round(h / (iterations+1) * 100) 
-            bar = '#' * (h * 50 // (iterations+1))
-            spaces = ' ' * (50 - len(bar))
-            sys.stdout.write(f'    \r{int(percent)}% [{bar}{spaces}]')
-            sys.stdout.flush()
-
         l_i = randint(0, list_l - 1)
         l_j = randint(0, list_l - 1)
         a = (list[l_i][l_j] + 1) % 2
@@ -101,15 +97,11 @@ for hh in samples:
             if h > skipCount:
                 list_energii_.append(energie)
 
-    sys.stdout.write('\r' + ' ' * 60 + '\r')
-    sys.stdout.flush()
-
     list_T.append(np.mean(np.array(list_energii_)))
     standartDeviations.append(np.array(list_energii_).std()*1)
 
     if samples.index(hh) in flags:
-        f_name = output_file=str(int(hh*10000) / 10000).ljust(5, '0') + ".png"
-        create_grid_image(list, output_file=f_name)
+        create_grid_image(list, output_file=str(hh) + ".png")
 
 
 x = np.array(samples)
