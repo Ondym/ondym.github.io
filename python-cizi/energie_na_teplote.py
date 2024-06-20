@@ -7,9 +7,10 @@ import numpy as np
 from PIL import Image
 import os
 import sys
+import json
 from datetime import datetime
 
-iterations = 1000000
+iterations = 10000000
 iterations_T = 100
 list_l = 256
 list_energii = np.array([])
@@ -17,13 +18,18 @@ list_energii_ = []
 standartDeviations = []
 T = 5
 min_T = 0.01
-max_T = 10
+max_T = 5
 list_T = []
 skipCount = iterations * .1
 
-samples = [min_T, 0.3, 0.6, 0.9, 1, 1.1, 1.15, 1.2, 1.3, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.5, 2.7, 3, 3.25, 3.5, 4, 5, 6, 7, 8, 9, max_T]
+samples = [min_T, max_T]
 
-flags = []
+flags = [0,1,2,3,4,5,6,7,8]
+
+def save_2d_array_as_json(array, filename):
+    with open("JSON-represantaions/" + filename, 'w') as json_file:
+        json.dump(array, json_file)
+    print(f"2D array saved as {filename}")
 
 print("# of samples: ", len(samples))
 
@@ -108,8 +114,9 @@ for hh in samples:
     standartDeviations.append(np.array(list_energii_).std()*1)
 
     if samples.index(hh) in flags:
-        f_name = output_file=str(int(hh*10000) / 10000).ljust(5, '0') + ".png"
-        create_grid_image(list, output_file=f_name)
+        f_name = output_file=str(int(hh*10000) / 10000).ljust(5, '0')
+        create_grid_image(list, output_file=(f_name + ".png"))
+        save_2d_array_as_json(list, f_name + ".json")
 
 
 x = np.array(samples)

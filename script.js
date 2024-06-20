@@ -36,14 +36,15 @@ Object.defineProperty(Array.prototype, 'includesVector', {
 });
 
 function setup() {
-    createCanvas(700, 700);
+    // pixelDensity(1);
+    createCanvas(600, 600);
 
     info = document.getElementById("tit") 
     totalInfo = document.getElementById("avg-tit");
     
     // RANDOM SCATTERING OF POINT IN THE BIGINNING 50/50
-    nodes = new Array;
-        let size = 50;
+    /*nodes = new Array;
+        let size = 256;
         n = 0;
         for (let i = 0; i < size; i++) {
             nodes.push(new Array);
@@ -51,13 +52,18 @@ function setup() {
                 nodes[i].push(genValue(0.5));
                 if (nodes[i][j]) n++;
             }
-        }
+        }*/
+
+    nodes = GRID;
         
     nodeSize = width / nodes.length;
-    HUEstep = 200 / (maxBlobSize ** 1/2);
+    // HUEstep = 150 / (maxBlobSize ** 1/2);
 
     lastStateEnergy = countDifferences();
     lastBlobNodes = new Array;
+    
+    totalBlobs = separateBlobs();
+    HUEstep = 200 / (maxBlobSize ** 1/2);
 }
 
 function draw() {
@@ -65,40 +71,38 @@ function draw() {
     
     // CHANGING
     
-    let changePos = simpleVector(floor(random(nodes.length)), floor(random(nodes.length)));
-    nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
+    // let changePos = simpleVector(floor(random(nodes.length)), floor(random(nodes.length)));
+    // nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
     
-    let changedPointEnergy = calcNodeEnergy(changePos.x, changePos.y);
+    // let changedPointEnergy = calcNodeEnergy(changePos.x, changePos.y);
     
-    deltaEnergy = 4 - 2*changedPointEnergy;
-    // console.log(changePos, deltaEnergy);
-    let alpha = acceptanceRatio(deltaEnergy);
+    // deltaEnergy = 4 - 2*changedPointEnergy;
+    // // console.log(changePos, deltaEnergy);
+    // let alpha = acceptanceRatio(deltaEnergy);
 
     
-    if (!random() < alpha) {
-        nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
-    }
+    // if (!random() < alpha) {
+    //     nodes[changePos.x][changePos.y] = (nodes[changePos.x][changePos.y] + 1) % 2;
+    // }
 
-    // DATA CHARACTERISTICS
+    // // DATA CHARACTERISTICS
 
-    totalBlobs = separateBlobs();
-    HUEstep = 200 / (maxBlobSize ** 1/2);
     
-    let avgNodesPerBlob = floor(n / totalBlobs.length * 10**4) / 10**4;
+    // let avgNodesPerBlob = floor(n / totalBlobs.length * 10**4) / 10**4;
     
     // info.innerText = "Počet (černých) bodů: " + n + "\nEnergie: " + lastStateEnergy + "\nAVG # bodů v blobu: " + avgNodesPerBlob;
     
-    totalStats.nodesPerBlob += avgNodesPerBlob; 
-    totalStats.blobCount += totalBlobs.length;
-    totalStats.totalEnergy += countDifferences();
-    totalStats.rounds++;
+    // totalStats.nodesPerBlob += avgNodesPerBlob; 
+    // totalStats.blobCount += totalBlobs.length;
+    // totalStats.totalEnergy += countDifferences();
+    // totalStats.rounds++;
     
 
-    totalInfo.innerText = 
-    "Počet kol: " + totalStats.rounds + 
-    "\nAVG počet blobů: " + floor(totalStats.blobCount/totalStats.rounds * 10**4) / 10**4 + 
-    "\nAVG # bodů v blobu: " + floor(totalStats.nodesPerBlob/totalStats.rounds * 10**4) / 10**4 +
-    "\nAVG energie: " + floor(totalStats.totalEnergy/totalStats.rounds * 10**4) / 10**4;
+    // totalInfo.innerText = 
+    // "Počet kol: " + totalStats.rounds + 
+    // "\nAVG počet blobů: " + floor(totalStats.blobCount/totalStats.rounds * 10**4) / 10**4 + 
+    // "\nAVG # bodů v blobu: " + floor(totalStats.nodesPerBlob/totalStats.rounds * 10**4) / 10**4 +
+    // "\nAVG energie: " + floor(totalStats.totalEnergy/totalStats.rounds * 10**4) / 10**4;
 
     
     //      VISUALS
@@ -111,7 +115,7 @@ function draw() {
         for (let i = 0; i < totalBlobs.length; i++) {
             for (let j = 0; j < totalBlobs[i].length; j++) {
                 fill(totalBlobs[i].length ** 1/2 * HUEstep, 90, 90);
-                rect(totalBlobs[i][j].x * nodeSize, totalBlobs[i][j].y * nodeSize, nodeSize, nodeSize);
+                rect(totalBlobs[i][j].x * nodeSize, totalBlobs[i][j].y * nodeSize, nodeSize*1.2, nodeSize*1.2);
             }
         }
         colorMode(RGB);
@@ -120,7 +124,7 @@ function draw() {
         for (let i = 0; i < nodes.length; i++) {
             for (let j = 0; j < nodes[0].length; j++) {
                 if (nodes[i][j]) {
-                    rect(i*nodeSize, j*nodeSize, nodeSize, nodeSize);
+                    rect(i*nodeSize, j*nodeSize, nodeSize*1.1, nodeSize*1.1);
                 }
             }
         }
@@ -168,7 +172,7 @@ function getBlob(_x, _y) {
     let blobNodes = [].concat(opened);
 
     let m = 0;
-    while (opened.length > 0 && m < 100) {
+    while (opened.length > 0) {
         m++; // insurance
         let newOpened = new Array;
 
@@ -203,7 +207,7 @@ function separateBlobs() {
     let nodesRegistered = [];
     maxBlobSize = 0;
     
-    let blobs = new Array;
+    let retBlobs = new Array;
     for (let i = 0; i < nodes.length; i++) {
         for (let j = 0; j < nodes.length; j++) {
             if (!nodesRegistered.includesVector(simpleVector(i, j))) {
@@ -213,13 +217,13 @@ function separateBlobs() {
                         maxBlobSize = blob.length;
                     }
                     nodesRegistered = nodesRegistered.concat(blob);
-                    blobs.push(blob);
+                    retBlobs.push(blob);
                 }
             }
         }
     }
 
-    return blobs;
+    return retBlobs;
 }
 
 function countDifferences() {
