@@ -5,7 +5,7 @@ let buffer;
 let bx = 0;
 let by = 0;
 let started = false;
-let range = 0.1
+let range = Math.PI/180;
 let hueID = 0;
 let smallerDimension;
 
