@@ -1,5 +1,5 @@
 let pendulumn;
-let g = 1;
+let g = 0.5;
 
 let buffer;
 let bx = 0;
